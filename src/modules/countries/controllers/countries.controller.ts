@@ -24,6 +24,8 @@ export class CountriesController {
   @Get('searchCountry')
   @ApiOperation({ summary: 'Get a country by name' })
   @ApiResponse({ status: 200, description: 'Country found' })
+  @ApiResponse({ status: 404, description: 'Country not found' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async searchCountry(@Query('nome') name: string) {
     return this.countriesService.getSearchCountriesByName(name);
   }

@@ -10,7 +10,7 @@ export const REST_COUNTRIES_API = {
     BASIC: 'name,capital,region,subregion,population',
     DETAILED:
       'name,capital,region,subregion,population,flags,languages,currencies',
-    MINIMAL: 'name,capital,population',
+    MINIMAL: 'name,population,region',
   },
   DEFAULT_FIELDS: 'name,capital,region,subregion,population',
 } as const;
