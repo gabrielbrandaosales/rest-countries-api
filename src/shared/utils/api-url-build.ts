@@ -33,4 +33,8 @@ export class ApiUrlBuilder {
       fields || REST_COUNTRIES_API.DEFAULT_FIELDS,
     );
   }
+
+  static getCountriesByName(name: string): string {
+    return this.buildUrl(`${REST_COUNTRIES_API.ENDPOINTS.NAME}/${name}`);
+  }
 }
