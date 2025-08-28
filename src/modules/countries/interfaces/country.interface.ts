@@ -9,9 +9,3 @@ export interface Country {
   subregion: string;
   // ... outros campos
 }
-
-export interface CountryResponse {
-  message: string;
-  success: boolean;
-  data: Country[];
-}

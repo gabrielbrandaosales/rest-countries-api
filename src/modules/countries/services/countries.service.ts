@@ -1,25 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Country, CountryResponse } from '../interfaces/country.interface';
+import { Country } from '../interfaces/country.interface';
 import { CustomHttpService } from 'src/shared/http/http.service';
 import { ApiUrlBuilder } from 'src/shared/utils/api-url-build';
 import { AxiosError } from 'axios';
-
 @Injectable()
 export class CountriesService {
   constructor(private readonly customHttpService: CustomHttpService) {}
 
-  async getCountriesWithBasicInfo(): Promise<CountryResponse> {
+  async getCountriesWithBasicInfo(): Promise<Country[]> {
     const url = ApiUrlBuilder.getAllCountries();
-    return {
-      message: 'Countries found successfully',
-      success: true,
-      data: await this.fetchData(url),
-    };
+    return await this.fetchData(url);
   }
 
-  async getSearchCountriesByName(name: string): Promise<CountryResponse> {
+  async getSearchCountriesByName(name: string): Promise<Country[]> {
     try {
       const url = ApiUrlBuilder.getCountriesByName(name);
       const response = await this.customHttpService.get<Country[]>(url);
@@ -27,11 +22,7 @@ export class CountriesService {
       if (!response.data || response.data.length === 0) {
         throw new NotFoundException(`Country not found with name: ${name}`);
       }
-      return {
-        message: 'Country found successfully',
-        success: true,
-        data: response.data,
-      };
+      return response.data;
     } catch (error) {
       if (this.isNotFoundError(error)) {
         throw new NotFoundException(`Country not found with name: ${name}`);
@@ -45,19 +36,14 @@ export class CountriesService {
     }
   }
 
-  async getTopTenPopulousCountries(): Promise<CountryResponse> {
+  async getTopTenPopulousCountries(): Promise<Country[]> {
     try {
       const url = ApiUrlBuilder.getAllCountries();
       const response = await this.fetchData(url);
-      const filteredCountries = response
+      return response
         .sort((a, b) => b.population - a.population)
         .slice(0, 10)
         .map((country) => this.formatCountry(country));
-      return {
-        message: 'Countries found successfully',
-        success: true,
-        data: filteredCountries,
-      };
     } catch (error) {
       throw new Error(`Failed to fetch countries: ${error}`);
     }
