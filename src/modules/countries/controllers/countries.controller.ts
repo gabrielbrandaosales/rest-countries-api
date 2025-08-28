@@ -7,10 +7,16 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 
-  @Get('top10')
+  @Get('TopTen')
   @ApiOperation({ summary: 'Get Top 10 Countries' })
   @ApiResponse({ status: 200, description: 'Top 10 Countries' })
-  index() {
-    return this.countriesService.getTopTenCountries();
+  async getTopTenPopulousCountries() {
+    return this.countriesService.getTopTenPopulousCountries();
+  }
+
+  @Get('All')
+  @ApiOperation({ summary: 'Get all countries with basic info' })
+  async getAllCountries() {
+    return this.countriesService.getCountriesWithBasicInfo();
   }
 }

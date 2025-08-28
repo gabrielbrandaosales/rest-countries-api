@@ -1,13 +1,11 @@
 export interface Country {
-  name: Name;
-  capital: string[];
+  name: {
+    common: string;
+    official: string;
+  };
+  population: any;
   region: string;
+  capital: string[];
   subregion: string;
-  population: number;
-}
-
-export interface Name {
-  common: string;
-  official: string;
-  // nativeName: NativeName;
+  // ... outros campos
 }
