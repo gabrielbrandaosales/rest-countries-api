@@ -1,8 +1,8 @@
 {
   "name": "rest-countries-api-",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
+  "description": "API to get countries data and ratings",
+  "author": "Gabriel Brandão",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
